@@ -7,7 +7,6 @@ function Layout(props) {
             <Navigation />
             <main>
                 {props.children}
-                <h1>Main Layout Area</h1>
             </main>
         </Fragment>
     )

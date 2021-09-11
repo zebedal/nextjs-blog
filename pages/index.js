@@ -1,50 +1,38 @@
 import { Fragment } from 'react'
 import Hero from '../components/homepage/Hero'
 import FeaturedPosts from '../components/homepage/FeaturedPosts'
+import  {getFeaturedPosts} from '../lib/posts-util'
+import Head from 'next/head'
 
-export default function HomePage() {
 
-  const DUMMY_POSTS = [
-    {
-      title: "Getting started with next js",
-      slug: "getting-started-with-nextjs",
-      image: "getting-started-with-nextjs.png",
-      excerpt: "Next js is an awesome tool that allows you to build web sites with SEO capabilities",
-      date: "10-06-2022"
-    },
-    {
-      title: "Getting started with next js2",
-      slug: "getting-started-with-nextjs2",
-      image: "getting-started-with-nextjs.png",
-      excerpt: "Next js is an awesome tool that allows you to build web sites with SEO capabilities",
-      date: "10-06-2022"
-    },
-    {
-      title: "Getting started with next js3",
-      slug: "getting-started-with-nextjs3",
-      image: "getting-started-with-nextjs.png",
-      excerpt: "Next js is an awesome tool that allows you to build web sites with SEO capabilities",
-      date: "10-06-2022"
-    },
-    {
-      title: "Getting started with next js4",
-      slug: "getting-started-with-nextjs4",
-      image: "getting-started-with-nextjs.png",
-      excerpt: "Next js is an awesome tool that allows you to build web sites with SEO capabilities",
-      date: "10-06-2022"
-    }
-  ]
+
+
+export default function HomePage(props) {
 
   return (
     <Fragment>
+      <Head>
+        <title>Sergios Blog</title>
+        <meta name="description" content="I post about web development"></meta>
+      </Head>
       <Hero />
-       <FeaturedPosts posts={DUMMY_POSTS}/>
+       <FeaturedPosts posts={props.posts}/>
 
     </Fragment>
 
-
-
-    //Hero section
-    //Featured posts
   )
+}
+
+
+
+export  function getStaticProps() {
+
+  const featuredPosts = getFeaturedPosts()
+
+  return {
+    props: {
+      posts: featuredPosts
+    },
+    revalidate: 120
+  }
 }
